@@ -1,42 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swypo: Decide Together - Support</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            text-align: center;
-            padding: 50px 20px;
-            color: #333;
-            background-color: #f9f9f9;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        h1 { color: #000; }
-        p { line-height: 1.6; }
-        .email {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #007aff;
-            text-decoration: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apps by Enes Talha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0c0c0e;
+      --surface: #141416;
+      --border: rgba(255,255,255,0.07);
+      --text: #f0ede8;
+      --muted: rgba(240,237,232,0.45);
+      --swypo: #5b8cff;
+      --crimson: #c0392b;
+      --crimson-glow: rgba(192,57,43,0.15);
+      --swypo-glow: rgba(91,140,255,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* ── HERO ── */
+    header {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 80px 24px 48px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    header h1 em {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    header p {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 300;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      margin: 40px auto;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+      padding: 0 24px;
+    }
+
+    @media (max-width: 620px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 32px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .card.swypo::before { background: radial-gradient(ellipse at top left, var(--swypo-glow), transparent 70%); }
+    .card.crimson::before { background: radial-gradient(ellipse at top left, var(--crimson-glow), transparent 70%); }
+
+    .card:hover { transform: translateY(-3px); }
+    .card:hover::before { opacity: 1; }
+    .card.swypo:hover { border-color: rgba(91,140,255,0.25); }
+    .card.crimson:hover { border-color: rgba(192,57,43,0.25); }
+
+    /* ── APP ICON ── */
+    .icon-wrap {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 26px;
+    }
+
+    .swypo .icon-wrap { background: rgba(91,140,255,0.12); }
+    .crimson .icon-wrap { background: rgba(192,57,43,0.12); }
+
+    /* ── BADGE ── */
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .swypo .badge { background: rgba(91,140,255,0.1); color: var(--swypo); }
+    .crimson .badge { background: rgba(192,57,43,0.1); color: #e05a4d; }
+
+    /* ── APP NAME ── */
+    .app-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+
+    .app-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+      font-weight: 300;
+      margin-bottom: 28px;
+      flex: 1;
+    }
+
+    /* ── SUPPORT BLOCK ── */
+    .support-block {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      margin-top: auto;
+    }
+
+    .support-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .support-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+
+    .support-link:hover { opacity: 0.7; }
+    .swypo .support-link { color: var(--swypo); }
+    .crimson .support-link { color: #e05a4d; }
+
+    .support-link svg {
+      width: 13px;
+      height: 13px;
+      opacity: 0.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 48px 24px 40px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 300;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
+      transition: color 0.2s;
+    }
+
+    footer a:hover { color: var(--text); }
+
+    /* ── FADE IN ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    header { animation: fadeUp 0.6s ease both; }
+    .card:nth-child(1) { animation: fadeUp 0.6s 0.15s ease both; }
+    .card:nth-child(2) { animation: fadeUp 0.6s 0.25s ease both; }
+    footer { animation: fadeUp 0.6s 0.35s ease both; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Swypo: Decide Together</h1>
-        <p>Welcome to the official support page.</p>
-        <p>If you have any questions, feedback, or need assistance with the app, we are here to help!</p>
-        <p>Please contact us at:</p>
-        <a class="email" href="mailto:enestalha0055@gmail.com">enestalha0055@gmail.com</a>
+
+  <header>
+    <p class="eyebrow">Apps by Enes Talha</p>
+    <h1>Support &amp; <em>Information</em></h1>
+    <p>Get help with any of our apps below.</p>
+  </header>
+
+  <div class="divider"></div>
+
+  <div class="grid">
+
+    <!-- SWYPO -->
+    <div class="card swypo">
+      <div class="icon-wrap">🔀</div>
+      <span class="badge">Decision Making</span>
+      <h2 class="app-name">Swypo</h2>
+      <p class="app-desc">Decide together. Swipe through options with friends or alone and let Swypo help you make the call — fast.</p>
+      <div class="support-block">
+        <p class="support-label">Support &amp; Contact</p>
+        <a class="support-link" href="mailto:enestalha0055@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          enestalha0055@gmail.com
+        </a>
+      </div>
     </div>
+
+    <!-- CRIMSON -->
+    <div class="card crimson">
+      <div class="icon-wrap">🔍</div>
+      <span class="badge">Mystery Game</span>
+      <h2 class="app-name">Crimson</h2>
+      <p class="app-desc">A new murder mystery every day. Interrogate suspects, gather clues, and solve the case before time runs out.</p>
+      <div class="support-block">
+        <p class="support-label">Support &amp; Contact</p>
+        <a class="support-link" href="mailto:enestalha0055@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          enestalha0055@gmail.com
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2026 Enes Talha &nbsp;·&nbsp; <a href="mailto:enestalha0055@gmail.com">enestalha0055@gmail.com</a></p>
+  </footer>
+
 </body>
 </html>
