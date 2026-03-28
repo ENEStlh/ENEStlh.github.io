@@ -33,7 +33,6 @@
       align-items: center;
     }
 
-    /* ── NOISE TEXTURE ── */
     body::before {
       content: '';
       position: fixed;
@@ -44,7 +43,6 @@
       opacity: 0.6;
     }
 
-    /* ── HERO ── */
     header {
       position: relative;
       z-index: 1;
@@ -83,7 +81,6 @@
       font-weight: 300;
     }
 
-    /* ── DIVIDER ── */
     .divider {
       width: 40px;
       height: 1px;
@@ -91,7 +88,6 @@
       margin: 40px auto;
     }
 
-    /* ── GRID ── */
     .grid {
       position: relative;
       z-index: 1;
@@ -107,7 +103,6 @@
       .grid { grid-template-columns: 1fr; }
     }
 
-    /* ── CARD ── */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -115,7 +110,6 @@
       padding: 36px 32px 32px;
       display: flex;
       flex-direction: column;
-      gap: 0;
       transition: border-color 0.3s, transform 0.3s;
       position: relative;
       overflow: hidden;
@@ -139,7 +133,6 @@
     .card.swypo:hover { border-color: rgba(91,140,255,0.25); }
     .card.crimson:hover { border-color: rgba(192,57,43,0.25); }
 
-    /* ── APP ICON ── */
     .icon-wrap {
       width: 56px;
       height: 56px;
@@ -154,7 +147,6 @@
     .swypo .icon-wrap { background: rgba(91,140,255,0.12); }
     .crimson .icon-wrap { background: rgba(192,57,43,0.12); }
 
-    /* ── BADGE ── */
     .badge {
       display: inline-block;
       font-size: 10px;
@@ -169,7 +161,6 @@
     .swypo .badge { background: rgba(91,140,255,0.1); color: var(--swypo); }
     .crimson .badge { background: rgba(192,57,43,0.1); color: #e05a4d; }
 
-    /* ── APP NAME ── */
     .app-name {
       font-family: 'DM Serif Display', serif;
       font-size: 1.6rem;
@@ -192,6 +183,9 @@
       border-top: 1px solid var(--border);
       padding-top: 20px;
       margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .support-label {
@@ -199,7 +193,13 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 8px;
+      margin-bottom: 2px;
+    }
+
+    .support-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .support-link {
@@ -210,6 +210,7 @@
       align-items: center;
       gap: 6px;
       transition: opacity 0.2s;
+      width: fit-content;
     }
 
     .support-link:hover { opacity: 0.7; }
@@ -220,9 +221,30 @@
       width: 13px;
       height: 13px;
       opacity: 0.7;
+      flex-shrink: 0;
     }
 
-    /* ── FOOTER ── */
+    .privacy-link {
+      font-size: 0.8rem;
+      font-weight: 400;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: opacity 0.2s;
+      width: fit-content;
+      opacity: 0.6;
+    }
+
+    .privacy-link:hover { opacity: 1; }
+    .swypo .privacy-link { color: var(--swypo); }
+    .crimson .privacy-link { color: #e05a4d; }
+
+    .privacy-link svg {
+      width: 11px;
+      height: 11px;
+    }
+
     footer {
       position: relative;
       z-index: 1;
@@ -243,7 +265,6 @@
 
     footer a:hover { color: var(--text); }
 
-    /* ── FADE IN ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -274,26 +295,38 @@
       <h2 class="app-name">Swypo</h2>
       <p class="app-desc">Decide together. Swipe through options with friends or alone and let Swypo help you make the call — fast.</p>
       <div class="support-block">
-        <p class="support-label">Support &amp; Contact</p>
-        <a class="support-link" href="mailto:enestalha0055@gmail.com">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-          enestalha0055@gmail.com
-        </a>
+        <p class="support-label">Support &amp; Links</p>
+        <div class="support-links">
+          <a class="support-link" href="mailto:enestalha0055@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+            enestalha0055@gmail.com
+          </a>
+          <a class="privacy-link" href="/privacy-swypo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Privacy Policy
+          </a>
+        </div>
       </div>
     </div>
 
-    <!-- CRIMSON CLUE -->
+    <!-- CRIMSON -->
     <div class="card crimson">
       <div class="icon-wrap">🔍</div>
       <span class="badge">Mystery Game</span>
       <h2 class="app-name">Crimson Clue</h2>
       <p class="app-desc">A new murder mystery every day. Interrogate suspects, gather clues, and solve the case before time runs out.</p>
       <div class="support-block">
-        <p class="support-label">Support &amp; Contact</p>
-        <a class="support-link" href="mailto:enestalha0055@gmail.com">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-          enestalha0055@gmail.com
-        </a>
+        <p class="support-label">Support &amp; Links</p>
+        <div class="support-links">
+          <a class="support-link" href="mailto:enestalha0055@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+            enestalha0055@gmail.com
+          </a>
+          <a class="privacy-link" href="/privacy-crimson">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Privacy Policy
+          </a>
+        </div>
       </div>
     </div>
 
